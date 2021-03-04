@@ -1,4 +1,4 @@
-# iss-git
+# ISS
 6. REZERVARI LOCURI - Modificari
 
 O institutie teatrala pune la dispozitia spectatorilor un sistem pentru rezervarea locurilor la spectacole.

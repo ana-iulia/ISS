@@ -1,5 +1,6 @@
 # iss-git
 6. REZERVARI LOCURI
+
 O institutie teatrala pune la dispozitia spectatorilor un sistem pentru rezervarea locurilor la spectacole.
 În fiecare zi, institutia are o singura reprezentatie, la care spectatorii pot rezerva locuri începand de
 dimineata. Pentru un loc în sala, sunt memorate urmatoarele informatii: pozitie (rândul x, loja y etc.),

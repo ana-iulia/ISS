@@ -1,0 +1,6 @@
+teatru/services/ITeatruObserver.java
+ teatru.services.ITeatruObserver
+teatru/services/TeatruException.java
+ teatru.services.TeatruException
+teatru/services/ITeatruServices.java
+ teatru.services.ITeatruServices

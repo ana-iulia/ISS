@@ -1,0 +1,11 @@
+teatru/client/gui/MessageAlert.java
+ teatru.client.gui.MessageAlert
+teatru/client/gui/Util.java
+ teatru.client.gui.Util
+teatru/client/gui/LoginController.java
+ teatru.client.gui.LoginController
+ teatru.client.gui.LoginController$1
+teatru/client/gui/ManagerController.java
+ teatru.client.gui.ManagerController
+teatru/client/StartClientFX.java
+ teatru.client.StartClientFX

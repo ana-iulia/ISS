@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="teatru.model.Performance" table="Performances">
+        <id name="title" column="title">
+
+        </id>
+        <property
+                name="date"
+                column="date"/>
+        <property
+                name="type"
+                column="type"/>
+        <property
+                name="director"
+                column="director"/>
+        <property
+                name="price"
+                column="price"/>
+        <property
+                name="description"
+                column="description"/>
+
+    </class>
+</hibernate-mapping>

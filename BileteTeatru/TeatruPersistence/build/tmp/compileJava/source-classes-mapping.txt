@@ -1,0 +1,25 @@
+teatru/persistence/ICrudRepository.java
+ teatru.persistence.ICrudRepository
+org/hibernate/dialect/SQLiteDialect.java
+ org.hibernate.dialect.SQLiteDialect
+ org.hibernate.dialect.SQLiteDialect$1
+ org.hibernate.dialect.SQLiteDialect$2
+ org.hibernate.dialect.SQLiteDialect$3
+ org.hibernate.dialect.SQLiteDialect$4
+ org.hibernate.dialect.SQLiteDialect$SQLiteUniqueDelegate
+teatru/persistence/IManagerRepository.java
+ teatru.persistence.IManagerRepository
+teatru/persistence/RepoException.java
+ teatru.persistence.RepoException
+teatru/persistence/Event.java
+ teatru.persistence.Event
+teatru/persistence/repository/jdbc/JdbcUtils.java
+ teatru.persistence.repository.jdbc.JdbcUtils
+org/hibernate/dialect/identity/SQLiteDialectIdentityColumnSupport.java
+ org.hibernate.dialect.identity.SQLiteDialectIdentityColumnSupport
+teatru/persistence/repository/jdbc/ManagerORMRepository.java
+ teatru.persistence.repository.jdbc.ManagerORMRepository
+teatru/persistence/IPerformanceRepository.java
+ teatru.persistence.IPerformanceRepository
+teatru/persistence/repository/jdbc/PerformanceORMRepository.java
+ teatru.persistence.repository.jdbc.PerformanceORMRepository

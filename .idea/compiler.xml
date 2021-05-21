@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="bilete_teatru" target="15" />
+      <module name="bilete_teatru.main" target="15" />
+      <module name="bilete_teatru.test" target="15" />
+      <module name="BileteTeatru.TeatruCliientFX.main" target="15" />
+      <module name="BileteTeatru.TeatruCliientFX.test" target="15" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

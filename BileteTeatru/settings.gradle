@@ -1,0 +1,9 @@
+rootProject.name = 'BileteTeatru'
+include 'TeatruCliientFX'
+include 'TeatruModel'
+include 'TeatruNetworking'
+include 'TeatruPersistence'
+include 'TeatruServer'
+include 'TeatruServices'
+include 'TeatruClientFX'
+

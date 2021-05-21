@@ -1,0 +1,6 @@
+package netowrk.rpcprotocol;
+
+public enum RequestType {
+    LOGIN, LOGOUT, GET_EMPLOYEE,GET_PERFORMANCES, SAVE_PERFORMANCE,GET_FLIGHTS,GET_DEPARTURES, NEW_TICKET;
+}
+

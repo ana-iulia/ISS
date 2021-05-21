@@ -1,0 +1,6 @@
+teatru/model/Entity.java
+ teatru.model.Entity
+teatru/model/Manager.java
+ teatru.model.Manager
+teatru/model/Performance.java
+ teatru.model.Performance

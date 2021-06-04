@@ -9,8 +9,12 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import teatru.persistence.IManagerRepository;
 import teatru.persistence.IPerformanceRepository;
+import teatru.persistence.IReservationRepository;
+import teatru.persistence.ISpectatorRepository;
 import teatru.persistence.repository.jdbc.ManagerORMRepository;
 import teatru.persistence.repository.jdbc.PerformanceORMRepository;
+import teatru.persistence.repository.jdbc.ReservationORMRepository;
+import teatru.persistence.repository.jdbc.SpectatorORMRepository;
 import teatru.services.ITeatruServices;
 
 
@@ -34,8 +38,10 @@ public class StartServer {
         //IEmployeeRepository employeeRepo=new EmployeeDBRepository(serverProps);
         IManagerRepository employeeRepo=new ManagerORMRepository(serverProps);
         IPerformanceRepository performanceRepository=new PerformanceORMRepository(serverProps);
+        ISpectatorRepository spectatorRepo=new SpectatorORMRepository(serverProps);
+        IReservationRepository reservationRepository=new ReservationORMRepository(serverProps);
 //        ITicketRepository ticketRepository=new TicketDBRepository(serverProps);
-        ITeatruServices teatruServerImpl=new TeatruServiceImpl(employeeRepo,performanceRepository);
+        ITeatruServices teatruServerImpl=new TeatruServiceImpl(employeeRepo,performanceRepository,spectatorRepo,reservationRepository);
 //        initialize();
 //        System.out.println("session factory: "+sessionFactory);
 

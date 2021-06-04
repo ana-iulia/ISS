@@ -43,7 +43,8 @@ public interface ICrudRepository<ID, E extends Entity<ID>> {
      * @return the removed entity or null if there is no entity with the given id
      * @throws IllegalArgumentException if the given id is null.
      */
-    void delete(ID id);
+    void delete(E entity);
+
 
     /**
      * @param entity entity must not be null

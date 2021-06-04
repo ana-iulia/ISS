@@ -4,6 +4,8 @@ package netowrk.rpcprotocol;
 
 import teatru.model.Manager;
 import teatru.model.Performance;
+import teatru.model.Reservation;
+import teatru.model.Spectator;
 import teatru.services.ITeatruObserver;
 import teatru.services.ITeatruServices;
 import teatru.services.TeatruException;
@@ -85,12 +87,35 @@ public class TeatruClientRpcWorker implements Runnable, ITeatruObserver {
                 return errorResponse;
             }
         }
+        if(request.type() == RequestType.LOGINAPP) {
+            System.out.println("LoginAPP request.."+request.type());
+            //EmployeeDTO employeeDTO=(EmployeeDTO) request.data();
+            Spectator spectator = (Spectator) request.data();
+            try {
+                server.loginApp(spectator, this);
+
+                return okResponse;
+            } catch (TeatruException e) {
+                connected = false;
+                return errorResponse;
+            }
+        }
         if(request.type() == RequestType.GET_PERFORMANCES) {
             try {
             System.out.println("Performance request.."+request.type());
             //EmployeeDTO employeeDTO=(EmployeeDTO) request.data();
             List<Performance> performances = server.getPerformances();
             return new Response.Builder().type(ResponseType.GET_PERFORMANCES).data(performances).build();
+            } catch (TeatruException e) {
+                return errorResponse;
+            }
+        }
+        if(request.type() == RequestType.GET_RESERVATIONS) {
+            try {
+                System.out.println("REs request.."+request.type());
+                //EmployeeDTO employeeDTO=(EmployeeDTO) request.data();
+                List<Reservation>reservations = server.getReservations();
+                return new Response.Builder().type(ResponseType.GET_RESERVATIONS).data(reservations).build();
             } catch (TeatruException e) {
                 return errorResponse;
             }
@@ -111,6 +136,67 @@ public class TeatruClientRpcWorker implements Runnable, ITeatruObserver {
                 return errorResponse;
             }
         }
+        if(request.type() == RequestType.DELETE_PERFORMANCE) {
+            try {
+                System.out.println("WORKER!!\n");
+                String s = (String) request.data();
+                System.out.println("Worker: "+s);
+                String[] fields = s.split(";");
+                System.out.println(fields);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate departureDate = LocalDate.parse(fields[1], formatter);
+                Performance p=new Performance(fields[0], departureDate,fields[2],fields[3],Integer.parseInt(fields[4]),fields[5]);
+                System.out.println("New perf: "+p);
+                // server.addPerformance(fields[0], departureDate,fields[2],fields[3],Integer.parseInt(fields[4]),fields[5]);
+//                return new Response.Builder().type(ResponseType.NEW_TICKET).data(null).build();
+                server.deletePerformance(p);
+                return okResponse;
+            } catch (TeatruException e) {
+                return errorResponse;
+            }
+        }
+        if(request.type() == RequestType.GET_EMPLOYEE) {
+            try {
+                //System.out.println("WORKER!!\n");
+                String s = (String) request.data();
+                //System.out.println("Worker: "+s);
+                String[] fields = s.split(";");
+                System.out.println(fields);
+
+
+
+                //System.out.println("New perf: "+p);
+                // server.addPerformance(fields[0], departureDate,fields[2],fields[3],Integer.parseInt(fields[4]),fields[5]);
+//                return new Response.Builder().type(ResponseType.NEW_TICKET).data(null).build();
+                Manager m=server.getManager(fields[0],fields[1]);
+                return new Response.Builder().type(ResponseType.GET_EMPLOYEE).data(m).build();
+//
+            } catch (TeatruException e) {
+                return errorResponse;
+            }
+        }
+        if(request.type() == RequestType.GET_SPECTATOR) {
+            try {
+                //System.out.println("WORKER!!\n");
+                String s = (String) request.data();
+                //System.out.println("Worker: "+s);
+                String[] fields = s.split(";");
+                System.out.println(fields);
+
+
+
+                //System.out.println("New perf: "+p);
+                // server.addPerformance(fields[0], departureDate,fields[2],fields[3],Integer.parseInt(fields[4]),fields[5]);
+//                return new Response.Builder().type(ResponseType.NEW_TICKET).data(null).build();
+                Spectator sp=server.getSpectator(fields[0],fields[1]);
+                return new Response.Builder().type(ResponseType.GET_SPECTATOR).data(sp).build();
+//
+            } catch (TeatruException e) {
+                return errorResponse;
+            }
+        }
+
 
 //        if(request.type()==RequestType.LOGOUT){
 //            System.out.println("Logout request");

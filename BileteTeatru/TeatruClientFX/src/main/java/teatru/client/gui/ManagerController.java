@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import jdk.jfr.Percentage;
 import teatru.model.Manager;
 import teatru.model.Performance;
+import teatru.model.Reservation;
 import teatru.services.ITeatruObserver;
 import teatru.services.ITeatruServices;
 import teatru.services.TeatruException;
@@ -55,6 +56,10 @@ public class ManagerController implements Initializable, ITeatruObserver {
         tableColumnPrice.setCellValueFactory(new PropertyValueFactory<Performance, Integer>("price"));
         tableColumnDescription.setCellValueFactory(new PropertyValueFactory<Performance, String>("description"));
         tableViewPerformances.setItems(performances);
+
+        tableColumnNumber.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("number"));
+        tableColumnSeats.setCellValueFactory(new PropertyValueFactory<Reservation, String>("seats"));
+        tableViewReservations.setItems(reservations);
 
     }
 
@@ -118,7 +123,12 @@ public class ManagerController implements Initializable, ITeatruObserver {
 //    ObservableList<Flight> flights = FXCollections.observableArrayList();
 //    ObservableList<String> resultFlights = FXCollections.observableArrayList();
     ObservableList<Performance> performances = FXCollections.observableArrayList();
+    ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+    @FXML
+    TableColumn<Reservation, Integer> tableColumnNumber;
 
+    @FXML
+    TableColumn<Reservation, String> tableColumnSeats;
     @FXML
     TableColumn<Performance, String> tableColumnTitle;
 
@@ -136,6 +146,8 @@ public class ManagerController implements Initializable, ITeatruObserver {
 
     @FXML
     TableView<Performance> tableViewPerformances;
+    @FXML
+    TableView<Reservation> tableViewReservations;
 //
 //    @FXML
 //    private ListView<String> resultFlightsListView;
@@ -169,6 +181,7 @@ public class ManagerController implements Initializable, ITeatruObserver {
         try {
 
             performances.setAll(server.getPerformances());
+            reservations.setAll(server.getReservations());
         System.out.println("DA");
 
 
@@ -235,6 +248,28 @@ public class ManagerController implements Initializable, ITeatruObserver {
         }
         } catch (NumberFormatException e) {
             MessageAlert.showErrorMessage(null, "Trebuie sa introduceti un pret intreg!\n");
+        }
+    }
+
+    @FXML
+    public void handleDelete(){
+       Performance p =tableViewPerformances.getSelectionModel().getSelectedItem();
+        System.out.println(p);
+        if(p!=null){
+            try{
+                server.deletePerformance(p);
+                performances.setAll(server.getPerformances());
+                tableViewPerformances.setItems(performances);
+                MessageAlert.showInfoMessage(null, "Spectacol sters cu succes!");
+
+            }catch (TeatruException e){
+                e.printStackTrace();
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
+
+        }
+        else{
+            MessageAlert.showErrorMessage(null, "Trebuie sa selectati un spectacol!\n");
         }
     }
 //

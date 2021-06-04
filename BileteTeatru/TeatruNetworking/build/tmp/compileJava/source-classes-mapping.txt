@@ -8,20 +8,22 @@ netowrk/dto/ManagerDTO.java
  netowrk.dto.ManagerDTO
 netowrk/utils/AbstractServer.java
  netowrk.utils.AbstractServer
+netowrk/dto/SpectatorDTO.java
+ netowrk.dto.SpectatorDTO
 netowrk/rpcprotocol/Request.java
  netowrk.rpcprotocol.Request
  netowrk.rpcprotocol.Request$Builder
-netowrk/rpcprotocol/Response.java
- netowrk.rpcprotocol.Response
- netowrk.rpcprotocol.Response$Builder
-netowrk/rpcprotocol/RequestType.java
- netowrk.rpcprotocol.RequestType
-netowrk/rpcprotocol/ResponseType.java
- netowrk.rpcprotocol.ResponseType
 netowrk/rpcprotocol/TeatruClientRpcWorker.java
  netowrk.rpcprotocol.TeatruClientRpcWorker
+netowrk/rpcprotocol/RequestType.java
+ netowrk.rpcprotocol.RequestType
 netowrk/rpcprotocol/TeatruServicesRpcProxy.java
  netowrk.rpcprotocol.TeatruServicesRpcProxy
  netowrk.rpcprotocol.TeatruServicesRpcProxy$ReaderThread
 netowrk/utils/TeatruRpcConcurrentServer.java
  netowrk.utils.TeatruRpcConcurrentServer
+netowrk/rpcprotocol/Response.java
+ netowrk.rpcprotocol.Response
+ netowrk.rpcprotocol.Response$Builder
+netowrk/rpcprotocol/ResponseType.java
+ netowrk.rpcprotocol.ResponseType

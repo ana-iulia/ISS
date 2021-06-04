@@ -22,5 +22,11 @@
         <mapping resource="Performance.hgm.xml"/>
         <!--        <mapping resource="hbm/Event.hbm.xml"/>-->
         <mapping class="teatru.model.Performance"/>
+        <mapping resource="Spectator.hgm.xml"/>
+        <!--        <mapping resource="hbm/Event.hbm.xml"/>-->
+        <mapping class="teatru.model.Spectator"/>
+        <mapping resource="Reservation.hgm.xml"/>
+        <!--        <mapping resource="hbm/Event.hbm.xml"/>-->
+        <mapping class="teatru.model.Reservation"/>
     </session-factory>
 </hibernate-configuration>

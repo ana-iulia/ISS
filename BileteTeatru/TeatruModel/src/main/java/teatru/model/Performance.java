@@ -2,6 +2,7 @@ package teatru.model;
 
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Performance extends Entity<String> {
     private String title;
@@ -88,5 +89,23 @@ public class Performance extends Entity<String> {
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Performance that = (Performance) o;
+        return price == that.price &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(director, that.director) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, date, type, director, price, description);
     }
 }

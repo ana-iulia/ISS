@@ -4,3 +4,7 @@ teatru/model/Manager.java
  teatru.model.Manager
 teatru/model/Performance.java
  teatru.model.Performance
+teatru/model/Spectator.java
+ teatru.model.Spectator
+teatru/model/Reservation.java
+ teatru.model.Reservation

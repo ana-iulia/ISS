@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teatru.client.gui.ManagerController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teatru.client.gui.ManagerController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="     Spectacole     ">
+          <Tab text="                 Spectacole                  ">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -21,12 +30,15 @@
                               <TableColumn fx:id="tableColumnPrice" prefWidth="84.0" text="Pret bilet" />
                           </columns>
                         </TableView>
-                        <Button layoutX="248.0" layoutY="324.0" mnemonicParsing="false" text="Sterge spectacol" />
+                        <Button layoutX="248.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleDelete" text="Sterge spectacol">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab text="     Adauga spectacol     ">
+          <Tab text="                 Adauga spectacol                    ">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -47,25 +59,16 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="     Rezervari     ">
+            <Tab text="                 Rezervari               ">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="32.0" layoutY="22.0" prefHeight="322.0" prefWidth="540.0">
+                        <TableView fx:id="tableViewReservations" layoutX="32.0" layoutY="22.0" prefHeight="322.0" prefWidth="540.0">
                           <columns>
-                            <TableColumn prefWidth="260.0" text="Numar rezervare" />
-                            <TableColumn prefWidth="279.0" text="Numar locuri" />
+                            <TableColumn fx:id="tableColumnNumber" prefWidth="260.0" text="Numar rezervare" />
+                            <TableColumn fx:id="tableColumnSeats" prefWidth="279.0" text="Locuri" />
                           </columns>
                         </TableView>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="     Lista de asteptare     ">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ListView layoutX="14.0" layoutY="28.0" prefHeight="326.0" prefWidth="574.0" />
                      </children>
                   </AnchorPane>
               </content>

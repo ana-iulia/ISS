@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="teatru.model.Reservation" table="Reservations">
+        <id name="number" column="number">
+
+        </id>
+        <property
+                name="seats"
+                column="seats"/>
+
+    </class>
+</hibernate-mapping>

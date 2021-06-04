@@ -5,8 +5,12 @@ package teatru.server;
 import org.hibernate.service.spi.ServiceException;
 import teatru.model.Manager;
 import teatru.model.Performance;
+import teatru.model.Reservation;
+import teatru.model.Spectator;
 import teatru.persistence.IManagerRepository;
 import teatru.persistence.IPerformanceRepository;
+import teatru.persistence.IReservationRepository;
+import teatru.persistence.ISpectatorRepository;
 import teatru.services.ITeatruObserver;
 import teatru.services.ITeatruServices;
 import teatru.services.TeatruException;
@@ -21,17 +25,24 @@ public class TeatruServiceImpl implements ITeatruServices {
 
     private IManagerRepository employeeRepository;
     private IPerformanceRepository performanceRepository;
+    private ISpectatorRepository spectatorRepository;
+    private IReservationRepository reservationRepository;
+
 
     //private MessageRepository messageRepository;
     private Map<String, ITeatruObserver> loggedEmployees;
+    private Map<String, ITeatruObserver> loggedSpectators;
 
 
-    public TeatruServiceImpl(IManagerRepository employeeRepository,IPerformanceRepository performanceRepository) {
+    public TeatruServiceImpl(IManagerRepository employeeRepository,IPerformanceRepository performanceRepository,ISpectatorRepository spectatorRepository,IReservationRepository reservationRepository) {
         this.employeeRepository=employeeRepository;
         this.performanceRepository=performanceRepository;
+        this.spectatorRepository=spectatorRepository;
+        this.reservationRepository=reservationRepository;
         //userRepository= uRepo;
         //messageRepository=mRepo;
-        loggedEmployees =new ConcurrentHashMap<>();;
+        loggedEmployees =new ConcurrentHashMap<>();
+        loggedSpectators =new ConcurrentHashMap<>();
     }
 
 //    @Override
@@ -48,9 +59,19 @@ public class TeatruServiceImpl implements ITeatruServices {
 
     public Manager getManager(String username, String password){
 
-        Manager employee1=null;
-        employee1=employeeRepository.findManager(username,password);
-        return employee1;
+
+        for (Manager m:employeeRepository.findAll()) {
+            if(m.getUsername().equals(username))
+                return m;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Spectator getSpectator(String username, String password) throws TeatruException {
+
+        return spectatorRepository.findOne(username);
     }
 
     @Override
@@ -90,6 +111,55 @@ public class TeatruServiceImpl implements ITeatruServices {
 //        System.out.println("A salvat ====> notificare");
 //            NotifyNewTicket(ticket);
 //            System.out.println("A notificat!");
+    }
+
+    @Override
+    public void deletePerformance(Performance p) throws TeatruException {
+        System.out.println("ServiceImpl:---------------");
+        System.out.println("Perf: "+p);
+        for (Performance performance:performanceRepository.findAll()) {
+            System.out.println("before deleting!!! "+p);
+            System.out.println("Perforances compared: "+performance);
+            if(performance.equals(p) ) {
+                System.out.println("Found equal: "+performance);
+                //&& !performance.getDate().equals(LocalDate.now())
+                performanceRepository.delete(p);
+                System.out.println("deleted!!!!");
+                break;
+            }
+//            else{
+//                throw new TeatruException("");
+//            }
+        }
+    }
+
+    @Override
+    public void loginApp(Spectator spectator, ITeatruObserver client) throws TeatruException {
+        Spectator spectatorR=spectatorRepository.findOne(spectator.getId());
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println("AICI"+spectatorR);
+
+        if (spectatorR!=null){
+            if(loggedSpectators.get(spectatorR.getId())!=null) {
+                throw new TeatruException("Spectator already logged in.");
+            }
+            loggedEmployees.put(spectatorR.getId(), client);
+            //notifyEmployeesLoggedIn(employee);
+            System.out.println(loggedEmployees);
+        }else
+            throw new TeatruException("Authentication failed.");
+    }
+
+    @Override
+    public List<Reservation> getReservations() throws TeatruException {
+        List<Reservation> reservations=new ArrayList<>();
+        System.out.println("performance: ");
+        for (Reservation r:reservationRepository.findAll()) {
+
+            reservations.add(r);
+        }
+        System.out.println("+++++++++++++Performances in serverImpl: "+reservations);
+        return reservations;
     }
 
 

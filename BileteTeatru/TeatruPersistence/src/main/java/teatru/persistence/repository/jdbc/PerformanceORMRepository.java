@@ -145,7 +145,20 @@ public class PerformanceORMRepository implements IPerformanceRepository {
         }
 
         @Override
-        public void delete(String id) {
+        public void delete(Performance entity) {
+            System.out.println("To delete: "+entity);
+            try(Session session = sessionFactory.openSession()) {
+                Transaction tx = null;
+                try {
+                    tx = session.beginTransaction();
+                    session.delete(entity);
+                    tx.commit();
+                } catch (RuntimeException ex) {
+                    if (tx != null)
+                        tx.rollback();
+                }
+            }
+            System.out.println("---------------Performance deleted");
 
         }
 

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="288.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teatru.client.gui.LoginController">
+<AnchorPane prefHeight="288.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="teatru.client.gui.LoginController">
    <children>
       <PasswordField fx:id="PasswordFieldpassword" layoutX="235.0" layoutY="174.0" />
-      <Button layoutX="292.0" layoutY="237.0" mnemonicParsing="false" onAction="#handlelogin" text="LOGIN" />
+      <Button layoutX="292.0" layoutY="237.0" mnemonicParsing="false" onAction="#handlelogin" text="LOGIN">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <TextField fx:id="Textfieldusername" layoutX="235.0" layoutY="119.0" />
       <Label layoutX="158.0" layoutY="123.0" text="USERNAME:" />
       <Label layoutX="158.0" layoutY="178.0" text="PASSWORD:" />
+      <CheckBox fx:id="isManager" layoutX="30.0" layoutY="241.0" mnemonicParsing="false" text="Manager">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </CheckBox>
    </children>
 </AnchorPane>

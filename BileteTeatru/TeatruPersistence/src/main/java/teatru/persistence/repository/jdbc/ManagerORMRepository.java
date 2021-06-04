@@ -121,7 +121,7 @@ public class ManagerORMRepository implements IManagerRepository {
     }
 
     @Override
-    public void delete(String s) {
+    public void delete(Manager entity) {
 
     }
 

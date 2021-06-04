@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import netowrk.rpcprotocol.TeatruServicesRpcProxy;
+import teatru.client.gui.AppController;
 import teatru.client.gui.ManagerController;
 import teatru.client.gui.LoginController;
 import teatru.services.ITeatruServices;
@@ -85,11 +86,22 @@ public class StartClientFX extends Application {
         ManagerController appctrl =
                 cloader.<ManagerController>getController();
         appctrl.setServer(server);
-
         ctrl.setAppController(appctrl);
-        ctrl.setParent(croot);
 
-        primaryStage.setTitle("Companie zboruri");
+
+        FXMLLoader c2loader = new FXMLLoader(
+                getClass().getClassLoader().getResource("view/appView.fxml"));
+        Parent c2root=c2loader.load();
+
+
+        AppController app2ctrl =
+                c2loader.<AppController>getController();
+        app2ctrl.setServer(server);
+
+        ctrl.setApp2Controller(app2ctrl);
+        ctrl.setParent(croot,c2root);
+
+        primaryStage.setTitle("Teatru");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

@@ -8,11 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import teatru.model.Manager;
+import teatru.model.Spectator;
 import teatru.services.ITeatruServices;
 import teatru.services.TeatruException;
 
@@ -21,7 +23,9 @@ public class LoginController {
     //private Stage stageMain;
     private ITeatruServices server;
     private ManagerController appCtrl;
+    private AppController app2Ctrl;
     private Manager crtEmployee;
+    private Spectator crtSpectator;
 //    private Service service;
 //
 //
@@ -30,7 +34,8 @@ public class LoginController {
 
     @FXML
     private PasswordField PasswordFieldpassword;
-
+    @FXML
+    private CheckBox isManager;
 
 //    @FXML
 //    private AnchorPane scenePane;
@@ -40,12 +45,13 @@ public class LoginController {
 //
 //    }
     Parent mainAappParent;
+    Parent mainAappParent2;
 
     public void setServer(ITeatruServices s){
         this.server=s;
 
     }
-    public void setParent(Parent p){mainAappParent=p;}
+    public void setParent(Parent p,Parent p2){mainAappParent=p;mainAappParent2=p2;}
 //    public void setAppController(AppController appController) {
 //        this.appCtrl = appController;
 //    }
@@ -66,38 +72,35 @@ public class LoginController {
         if (!errors.equals("")) {
             MessageAlert.showErrorMessage(null, errors);
         } else {
-            crtEmployee = new Manager(u, p);
-            try {
-//                FXMLLoader uloader = new FXMLLoader(getClass().getResource("/AppView.fxml"));
-                //Parent root = uloader.load();
-//                AppController uctrl = uloader.getController();
-//                setAppController(uctrl);
+            if (isManager.isSelected()) {
+                //System.out.println("SELECTAT!!!");
 
-//                FXMLLoader loader = new FXMLLoader();
-//                loader.setLocation(getClass().getResource("AppView.fxml"));
-//                AnchorPane root = loader.load();
-//                AppController ctrl = loader.getController();
-//                //ctrl.setService(service);
-//                setAppController(ctrl);
-                server.login(crtEmployee, appCtrl);
-                System.out.println("logged in");
-                appCtrl.setManager(crtEmployee);
-                appCtrl.setLists();
-                Stage stage = new Stage();
-                stage.setTitle("Window for " + crtEmployee.getId());
-                stage.setScene(new Scene(mainAappParent));
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent event) {
-                       // appCtrl.logout();
-                        System.exit(0);
-                    }
-                });
-                stage.show();
+                crtEmployee = new Manager(u, p);
+
+                try {
+
+//                if(server.getManager(u,p)!=null) {
+                    server.login(crtEmployee, appCtrl);
+                    System.out.println("logged in");
+                    appCtrl.setLists();
+                    appCtrl.setManager(crtEmployee);
+                    //appCtrl.setLists();
+                    Stage stage = new Stage();
+                    stage.setTitle("Window for " + crtEmployee.getId());
+                    stage.setScene(new Scene(mainAappParent));
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            // appCtrl.logout();
+                            System.exit(0);
+                        }
+                    });
+                    stage.show();
 //                appCtrl.setEmployee(crtEmployee);
 //                appCtrl.setLists();
-                //appCtrl.setLoggedFriends();
-                ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+                    //appCtrl.setLoggedFriends();
+                    ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+                    //}
 
 
 //                FXMLLoader loader = new FXMLLoader(
@@ -170,17 +173,54 @@ public class LoginController {
 ////            appCtrl.setLoggedFriends();
 ////            ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
 //
-            } catch (TeatruException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("MPP Zboruri");
-                alert.setHeaderText("Authentication failure");
-                alert.setContentText("Wrong username or password");
-                alert.showAndWait();
+                } catch (TeatruException e) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Teatru");
+                    alert.setHeaderText("Authentication failure");
+                    alert.setContentText("Wrong username or password");
+                    alert.showAndWait();
+                }
             }
+              else{
+                    crtSpectator = new Spectator(u, p);
+
+                    try {
+                        server.loginApp(crtSpectator, app2Ctrl);
+                        System.out.println("logged in");
+                        app2Ctrl.setSpectator(crtSpectator);
+                        app2Ctrl.setLists2();
+                        Stage stage = new Stage();
+                        stage.setTitle("Window for " + crtSpectator.getId());
+                        stage.setScene(new Scene(mainAappParent2));
+                        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent event) {
+                                // appCtrl.logout();
+                                System.exit(0);
+                            }
+                        });
+                        stage.show();
+//                appCtrl.setEmployee(crtEmployee);
+//                appCtrl.setLists();
+                        //appCtrl.setLoggedFriends();
+                        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+                    } catch (TeatruException e) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Teatru");
+                        alert.setHeaderText("Authentication failure");
+                        alert.setContentText("Wrong username or password");
+                        alert.showAndWait();
+                    }
+
         }
+    }
     }
     public void setAppController(ManagerController managerController) {
         this.appCtrl = managerController;
+    }
+
+    public void setApp2Controller(AppController managerController) {
+        this.app2Ctrl = managerController;
     }
 
 

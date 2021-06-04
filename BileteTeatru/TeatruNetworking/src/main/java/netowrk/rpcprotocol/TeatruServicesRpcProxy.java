@@ -3,8 +3,11 @@ package netowrk.rpcprotocol;
 
 
 import netowrk.dto.ManagerDTO;
+import netowrk.dto.SpectatorDTO;
 import teatru.model.Manager;
 import teatru.model.Performance;
+import teatru.model.Reservation;
+import teatru.model.Spectator;
 import teatru.services.ITeatruObserver;
 import teatru.services.ITeatruServices;
 import teatru.services.TeatruException;
@@ -44,14 +47,29 @@ public class TeatruServicesRpcProxy implements ITeatruServices {
 
     @Override
     public Manager getManager(String username, String password) throws TeatruException {
-        ManagerDTO employeeDTO=new ManagerDTO(username,password);
-        Request req = new Request.Builder().type(RequestType.GET_EMPLOYEE).data(employeeDTO).build();
+        String s = username+";"+password;
+        Request req = new Request.Builder().type(RequestType.GET_EMPLOYEE).data(s).build();
+        sendRequest(req);
+        System.out.println("Cerere employee trimisa");
+        Response response = readResponse();
+        System.out.println("raspuns employee result"+response);
+        if (response.type() == ResponseType.ERROR) {
+            throw new TeatruException("Error");
+        }
+        Manager manager = (Manager) response.data();
+        return manager;
+    }
+
+    @Override
+    public Spectator getSpectator(String username, String password) throws TeatruException {
+        String s=username+";"+password;
+        Request req = new Request.Builder().type(RequestType.GET_SPECTATOR).data(s).build();
         sendRequest(req);
         Response response = readResponse();
         if (response.type() == ResponseType.ERROR) {
             throw new TeatruException("Error");
         }
-        Manager employee = (Manager) response.data();
+        Spectator employee = (Spectator) response.data();
         return employee;
     }
 
@@ -85,6 +103,53 @@ public class TeatruServicesRpcProxy implements ITeatruServices {
             throw new TeatruException("Exista deja un spectcol in data: "+date.toString()+" !\n");
         }
         //Flight flight = (Flight) response.data();
+    }
+
+    @Override
+    public void deletePerformance(Performance p) throws TeatruException {
+        String s = p.getTitle()+";"+p.getDate().toString() + ";" + p.getType()+";"+p.getDirector()+";"+p.getPrice()+";"+p.getDescription();
+        Request req = new Request.Builder().type(RequestType.DELETE_PERFORMANCE).data(s).build();
+        sendRequest(req);
+        System.out.println("del performance trimisa "+s);
+
+        Response response = readResponse();
+        System.out.println("del performance result"+response);
+        if (response.type() == ResponseType.ERROR) {
+            throw new TeatruException("Nu se poate sterge spectacolul: "+p.getTitle()+" !\n");
+        }
+    }
+
+    @Override
+    public void loginApp(Spectator spectator, ITeatruObserver client) throws TeatruException {
+        initializeConnection();
+        //EmployeeDTO udto= new EmployeeDTO(username,password);
+        Request req=new Request.Builder().type(RequestType.LOGINAPP).data(spectator).build();
+        sendRequest(req);
+        Response response=readResponse();
+        if (response.type()== ResponseType.OK){
+            this.client=client;
+            return;
+        }
+        if (response.type()== ResponseType.ERROR){
+            String err=response.data().toString();
+            closeConnection();
+            throw new TeatruException(err);
+        }
+    }
+
+    @Override
+    public List<Reservation> getReservations() throws TeatruException {
+        Request req = new Request.Builder().type(RequestType.GET_RESERVATIONS).build();
+        sendRequest(req);
+        System.out.println("Cerere res trimisa");
+        Response response = readResponse();
+        System.out.println("raspuns res"+response);
+        if (response.type() == ResponseType.ERROR) {
+            throw new TeatruException("Error");
+        }
+        System.out.println("Inainte: "+response.data());
+        List<Reservation> reservations = (List<Reservation>) response.data();
+        return reservations;
     }
 
 
